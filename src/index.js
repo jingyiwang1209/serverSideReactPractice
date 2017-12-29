@@ -1,14 +1,17 @@
+import 'babel-polyfill';
 import express from "express";
 import renderer from './helper/renderer';
+import createStore from './helper/createStore';
 
-// https://react-ssr-api.herokuapp.com/
 
 
 const app = express();
 app.use(express.static("public"));
 
 app.get("*", (req, res) => {
-    res.send(renderer(req));
+    const store = createStore();
+    // Some logic to initialize and load data into the store
+    res.send(renderer(req, store));
 
 });
 
