@@ -24,10 +24,18 @@ class UsersList extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('users', state.users)
+    // console.log('users', state.users)
     return {
         users: state.users
     };
 }
 
-export default connect(mapStateToProps, { fetchUsers })(UsersList);
+function loadData(store){
+    return store.dispatch(fetchUsers())
+}
+
+
+export default {
+    loadData,
+    component:connect(mapStateToProps, { fetchUsers })(UsersList)
+};
