@@ -5,7 +5,7 @@ import Routes from "../client/Routes";
 import { Provider } from "react-redux";
 import { renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
-
+import { Helmet } from 'react-helmet';
 
 export default (req, store, context) => {
     const content = renderToString(
@@ -15,7 +15,12 @@ export default (req, store, context) => {
             </StaticRouter>
         </Provider>
     );
-    const html = `<html><head></head>
+    const helmet = Helmet.renderStatic()
+    const html = `<html>
+    <head>
+    ${helmet.title.toString()}
+    ${helmet.meta.toString()}
+    </head>
     <body>
      <div id="root">${content}</div>
      <script>window.INITIAL_STATE = ${serialize(store.getState())}</script>
